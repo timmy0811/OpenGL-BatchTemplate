@@ -4,6 +4,8 @@
 #include "glm/glm.hpp"
 #include "glm/gtx/normal.hpp"
 
+#include "../misc/Vertex.hpp"
+
 class VertexBuffer {
 private:
 	unsigned int m_RendererID;
