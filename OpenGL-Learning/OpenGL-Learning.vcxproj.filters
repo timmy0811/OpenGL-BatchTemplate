@@ -1396,5 +1396,8 @@
     <ClInclude Include="src\OpenGL_util\misc\Material.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\OpenGL_util\misc\Vertex.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

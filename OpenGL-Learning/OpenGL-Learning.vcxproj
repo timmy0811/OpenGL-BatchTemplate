@@ -301,6 +301,7 @@
   <ItemGroup>
     <ClInclude Include="src\OpenGL_util\misc\Light.hpp" />
     <ClInclude Include="src\OpenGL_util\misc\Material.hpp" />
+    <ClInclude Include="src\OpenGL_util\misc\Vertex.hpp" />
     <ClInclude Include="src\OpenGL_util\model\Model3D.h" />
     <ClInclude Include="src\OpenGL_util\model\Mesh.h" />
     <ClInclude Include="src\vendor\imgui\imgui_impl_glfw.h" />

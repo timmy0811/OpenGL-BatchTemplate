@@ -13,7 +13,7 @@ VertexBuffer::VertexBuffer(unsigned int size)
 {
     GLCall(glGenBuffers(1, &m_RendererID));
     GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_RendererID));
-    GLCall(glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * size, nullptr, GL_DYNAMIC_DRAW));
+    GLCall(glBufferData(GL_ARRAY_BUFFER, sizeof(OpenGL::VertexTextured2D) * size, nullptr, GL_DYNAMIC_DRAW));
 }
 
 void VertexBuffer::AddVertexData(const void* data, int size, int offset) {
@@ -34,7 +34,7 @@ VertexBuffer::~VertexBuffer()
 
 void VertexBuffer::addPoly(glm::vec3 pos0, glm::vec3 pos1, glm::vec3 pos2, glm::vec4 color, VertexBuffer& vb)
 {
-	TriangleLight t = TriangleLight();
+	OpenGL::TriangleLight t = OpenGL::TriangleLight();
 
 	t.v1.LightColor = color;
 	t.v1.Position = pos0;
@@ -45,12 +45,12 @@ void VertexBuffer::addPoly(glm::vec3 pos0, glm::vec3 pos1, glm::vec3 pos2, glm::
 	t.v3.LightColor = color;
 	t.v3.Position = pos2;
 
-	vb.AddVertexData(&t, sizeof(TriangleLight));
+	vb.AddVertexData(&t, sizeof(OpenGL::TriangleLight));
 }
 
 void VertexBuffer::addPoly(glm::vec3 pos0, glm::vec3 pos1, glm::vec3 pos2, glm::vec2 texPos0, glm::vec2 texPos1, glm::vec2 texPos2, glm::vec4 color, float texId, VertexBuffer& vb)
 {
-	Triangle t = Triangle();
+	OpenGL::Triangle t = OpenGL::Triangle();
 
 	t.v1.Color = color;
 	t.v1.Position = pos0;
@@ -67,12 +67,12 @@ void VertexBuffer::addPoly(glm::vec3 pos0, glm::vec3 pos1, glm::vec3 pos2, glm::
 	t.v3.TexCoords = texPos2;
 	t.v3.TexID = texId;
 
-	vb.AddVertexData(&t, sizeof(Triangle));
+	vb.AddVertexData(&t, sizeof(OpenGL::Triangle));
 }
 
 void VertexBuffer::addPolyN(glm::vec3 pos0, glm::vec3 pos1, glm::vec3 pos2, glm::vec2 texPos0, glm::vec2 texPos1, glm::vec2 texPos2, glm::vec4 color, float texId, VertexBuffer& vb)
 {
-	TriangleN t = TriangleN();
+	OpenGL::TriangleN t = OpenGL::TriangleN();
 	// Calculate Normal
 	glm::vec3 normal = glm::normalize(glm::triangleNormal(pos0, pos1, pos2));
 
@@ -94,7 +94,7 @@ void VertexBuffer::addPolyN(glm::vec3 pos0, glm::vec3 pos1, glm::vec3 pos2, glm:
 	t.v3.TexID = texId;
 	t.v3.Normal = normal;
 
-	vb.AddVertexData(&t, sizeof(TriangleN));
+	vb.AddVertexData(&t, sizeof(OpenGL::TriangleN));
 }
 
 void VertexBuffer::addLightSource(glm::vec3 position, float sideLength, glm::vec4 color, VertexBuffer& vb)
