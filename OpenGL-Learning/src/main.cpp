@@ -1,5 +1,8 @@
+
 #include <GLEW/glew.h>
 #include <GLFW/glfw3.h>
+
+#include <yaml-cpp/yaml.h>
 
 #include <iostream>
 #include <fstream>
@@ -11,55 +14,9 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_opengl3.h"
-#include "imgui/imgui_impl_glfw.h"
+#include "config.h"
 
-#define c_win_Width 1920
-#define c_win_Height 1080
-
-ImGuiIO& ImGuiInit() {
-    ImGui::CreateContext();
-
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-
-    ImGui::StyleColorsDark();
-
-    ImGuiStyle& style = ImGui::GetStyle();
-    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-    {
-        style.WindowRounding = 0.5f;
-        style.Colors[ImGuiCol_WindowBg].w = 1.0f;
-    }
-    return io;
-}
-
-void ImGuiNewFrame() {
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
-}
-
-void ImGuiRender(ImGuiIO& io){
-    ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-    {
-        GLFWwindow* backup_current_context = glfwGetCurrentContext();
-        ImGui::UpdatePlatformWindows();
-        ImGui::RenderPlatformWindowsDefault();
-        glfwMakeContextCurrent(backup_current_context);
-    }
-}
-
-void ImGuiShutdown() {
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
-};
+#include "imgui_helper/imgui.h"
 
 int main(void)
 {
@@ -70,13 +27,14 @@ int main(void)
         return -1;
 
     // Window hints for glfw
+    glfwWindowHint(GLFW_DEPTH_BITS, 24);
     glfwWindowHint(GLFW_SAMPLES, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(c_win_Width, c_win_Height, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(conf.WIN_WIDTH, conf.WIN_HEIGHT, "Mineclone", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -108,6 +66,9 @@ int main(void)
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init();
 
+    // Game
+    // Handler GameHandler = Handler(window);
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
@@ -117,6 +78,16 @@ int main(void)
 
         ImGuiNewFrame();
 
+        ImGui::Begin("Test Window");
+        ImGui::Text("Press this Button :)");
+        if (ImGui::Button("Button")) LOGC("Button Press!", LOG_COLOR::SPECIAL_A);
+        ImGui::End();
+
+        //Game
+        /*GameHandler.OnInput(window);
+        GameHandler.OnUpdate();
+        GameHandler.OnRender();*/
+
         ImGuiRender(io);
 
         // glfw handling
@@ -124,7 +95,10 @@ int main(void)
         GLCall(glfwPollEvents());
     }
 
+    LOGC("Terminating Application...", LOG_COLOR::LOG);
     ImGuiShutdown();
     glfwTerminate();
+
+    LOGC("OK. Exiting", LOG_COLOR::OK);
     return 0;
 }

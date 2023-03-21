@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include "glm/glm.hpp"
 
+#include "../config.h"
 #include "../debug/Debug.hpp"
 #include "../misc/Material.hpp"
 #include "../misc/Light.hpp"
@@ -24,7 +25,7 @@ private:
 	const std::string& m_PathVert;
 	const std::string& m_PathFrag;
 
-	mutable std::unordered_map<std::string, int> m_UniformLacationCache {};
+	mutable std::unordered_map<std::string, int> m_UniformLacationCache{};
 
 	int GetUniformLocation(const std::string& name) const;
 
