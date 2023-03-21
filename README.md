@@ -4,4 +4,8 @@ A basic OpenGL Project solution build in VS22.
 * Using GLFW for window handling
 
 ### Additions
-This template includes an OpenGL wrapper project called *OpenGL_util*.
+This template includes an OpenGL wrapper project *OpenGL_util*.
++ Dear ImGui
++ Dynamic Logging System
++ YAML-Support
++ STB-Image
