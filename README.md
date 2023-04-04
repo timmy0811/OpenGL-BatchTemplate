@@ -9,3 +9,6 @@ This template includes an OpenGL wrapper project *OpenGL_util*.
 + Dynamic Logging System
 + YAML-Support
 + STB-Image
+
+## How to use
+Some library files are missing, you can download them here: https://bib926-my.sharepoint.com/:f:/g/personal/timm_schmidt_edu_fhdw_de/EqxN2gkPWflGpomapFEDPFoB5wxrQKibWz2gnenIiFlwww?e=HgQrqi
